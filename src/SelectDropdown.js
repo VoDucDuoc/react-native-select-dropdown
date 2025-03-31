@@ -109,9 +109,11 @@ const SelectDropdown = (
   };
   const onSelectItem = (item, index) => {
     const indexInOriginalArr = findIndexInArr(item, data);
-    closeDropdown();
     onSelect && onSelect(item, indexInOriginalArr);
     selectItem(indexInOriginalArr);
+    if (!multiple) {
+      closeDropdown();
+    }
   };
   const onScrollToIndexFailed = error => {
     dropDownFlatlistRef.current.scrollToOffset({
