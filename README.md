@@ -2,20 +2,20 @@
 
 This package was forked from https://github.com/AdelRedaa97/react-native-select-dropdown
 
-Allow multiple select dropdown with search and custom styles.
+Multiple select was added.
 
 ## Installation
 
 #### # Using npm
 
 ```bash
-npm install react-native-select-dropdown
+npm install @duocvo/react-native-select-dropdown
 ```
 
 #### # Using yarn
 
 ```bash
-yarn add react-native-select-dropdown
+yarn add @duocvo/react-native-select-dropdown
 ```
 
 ## Demo
@@ -48,37 +48,37 @@ import SelectDropdown from '@duocvo/react-native-select-dropdown'
     'frown',
   ];
 ...
-        <SelectDropdown
-          data={emojis}
-          onSelect={(selectedItem, index) => {
-            console.log(selectedItem, index);
-          }}
-          renderButtonMultiple={(selectedItems, isOpen) => {
-            return (
-              <View style={styles.dropdownButtonStyle}>
-                <CustomText style={styles.dropdownButtonTxtStyle}>
-                  {selectedItems?.map(it => it.item).join(', ') || 'Select your mood'}
-                </CustomText>
-              </View>
-            );
-          }}
-          multiple
-          renderItem={(item, index, isSelected) => {
-            return (
-              <View
-                style={{
-                  ...styles.dropdownItemStyle,
-                  ...(isSelected && { backgroundColor: '#D2D9DF' }),
-                }}
-              >
-                <CustomText style={styles.dropdownItemTxtStyle}>
-                  {item}
-                </CustomText>
-              </View>
-            );
-          }}
-          dropdownStyle={styles.dropdownMenuStyle}
-        />
+    <SelectDropdown
+      data={emojis}
+      onSelect={(selectedItem, index) => {
+        console.log(selectedItem, index);
+      }}
+      renderButtonMultiple={(selectedItems, isOpen) => {
+        return (
+          <View style={styles.dropdownButtonStyle}>
+            <CustomText style={styles.dropdownButtonTxtStyle}>
+              {selectedItems?.map(it => it.item).join(', ') || 'Select your mood'}
+            </CustomText>
+          </View>
+         );
+      }}
+      multiple
+      renderItem={(item, index, isSelected) => {
+        return (
+          <View
+            style={{
+              ...styles.dropdownItemStyle,
+              ...(isSelected && { backgroundColor: '#D2D9DF' }),
+            }}
+          >
+            <CustomText style={styles.dropdownItemTxtStyle}>
+               {item}
+            </CustomText>
+          </View>
+        );
+      }}
+      dropdownStyle={styles.dropdownMenuStyle}
+    />
 ...
   const styles = StyleSheet.create({
     dropdownButtonStyle: {
