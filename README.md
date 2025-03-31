@@ -23,7 +23,7 @@ yarn add @duocvo/react-native-select-dropdown
 #### Code provided in Examples folder.
 
 <p float="left">
-	<img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTc2a2Ntc2JpMzg4OXMwaWhsamo1c2JuaXFzNTU5Mm1oNDEzZnkzaSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Gvm2WysCnUmQR3cwml/giphy.gif" width="300" height="650">
+	<img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExdW14YmdieGwwZWJuOWhuMmx5NHdjZW4yd2RodzlnbW1tempkODdhMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/UBJ29mBh2GUGAaf6gk/giphy.gif" width="300" height="650">
 </p>
 
 ## Usage
