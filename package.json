@@ -1,0 +1,28 @@
+{
+  "name": "@duocvo/react-native-select-dropdown",
+  "version": "1.0.0",
+  "description": "This package was forked from https://github.com/AdelRedaa97/react-native-select-dropdown. Allow multiple select dropdown with search and custom styles.",
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "android",
+    "ios",
+    "dropdown",
+    "select",
+    "option",
+    "selector",
+    "picker",
+    "menu",
+    "modal"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VoDucDuoc/react-native-select-dropdown"
+  },
+  "author": "Duoc Vo <duocvo2501@gmail.com> (https://github.com/VoDucDuoc)",
+  "license": "MIT"
+}
