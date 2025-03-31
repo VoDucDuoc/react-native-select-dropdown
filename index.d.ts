@@ -114,7 +114,7 @@ declare module '@duocvo/react-native-select-dropdown' {
     /**
      * function returns React component for the dropdown button when multiple is true
      */
-    renderButtonMultiple?: (selectedItems: any[]) => React.ReactNode;
+    renderButtonMultiple?: (selectedItems: any[], isOpened: boolean) => React.ReactNode;
   };
 
   export default class SelectDropdown extends React.Component<SelectDropdownProps> {
