@@ -20,6 +20,7 @@ const Input = (
     renderLeft,
     renderRight,
     testID,
+    autoFocus,
   },
   ref,
 ) => {
@@ -37,6 +38,7 @@ const Input = (
     renderLeft: renderLeft,
     renderRight: renderRight,
     testID: testID,
+    autoFocus: autoFocus ?? false,
   };
 
   const onChangeTextValidator = txt => {
@@ -75,7 +77,7 @@ const Input = (
           autoComplete={'off'}
           autoCorrect={false}
           autoCapitalize={'none'}
-          autoFocus={true}
+          autoFocus={defaults.autoFocus}
         />
         {defaults.renderRight && <View style={styles.pressableRight}>{defaults.renderRight()}</View>}
       </View>

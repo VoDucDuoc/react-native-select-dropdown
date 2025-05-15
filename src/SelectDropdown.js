@@ -42,6 +42,7 @@ const SelectDropdown = (
     renderSearchInputRightIcon /* function returns React component for search input icon */,
     onChangeSearchInputText /* function callback when the search input text changes, this will automatically disable the dropdown's interna search to be implemented manually outside the component  */,
     multiple = false, // for multiple select
+    autoFocusSearchInput = false, // for auto focus the search input
   },
   ref,
 ) => {
@@ -144,6 +145,7 @@ const SelectDropdown = (
           inputTextStyle={searchInputTxtStyle}
           renderLeft={renderSearchInputLeftIcon}
           renderRight={renderSearchInputRightIcon}
+          autoFocus={autoFocusSearchInput}
         />
       )
     );

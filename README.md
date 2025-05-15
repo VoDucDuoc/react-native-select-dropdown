@@ -2,7 +2,7 @@
 
 This package was forked from https://github.com/AdelRedaa97/react-native-select-dropdown
 
-Multiple select was added.
+Multiple select and autoFocus options was added.
 
 ## Installation
 
