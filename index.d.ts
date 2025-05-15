@@ -115,6 +115,11 @@ declare module '@duocvo/react-native-select-dropdown' {
      * function returns React component for the dropdown button when multiple is true
      */
     renderButtonMultiple?: (selectedItems: any[], isOpened: boolean) => React.ReactNode;
+
+    /**
+     * Enable auto focus the search input
+     */
+    autoFocusSearchInput?: boolean;
   };
 
   export default class SelectDropdown extends React.Component<SelectDropdownProps> {
