@@ -130,6 +130,8 @@ import SelectDropdown from '@duocvo/react-native-select-dropdown'
 
 - [`multiple`](#multiple)
 
+- [`autoFocusSearchInput`](#autoFocusSearchInput)
+
 - [`renderButtonMultiple](#renderButtonMultiple)
 
 - [`defaultValue`](#defaultValue)
@@ -228,6 +230,16 @@ function returns React component for each dropdown item
 ### multiple
 
 Enable multiple selection
+
+| Type     | Required |
+| -------- | -------- |
+| boolean  | No       |
+
+---
+
+### autoFocusSearchInput
+
+Option focus input in search section
 
 | Type     | Required |
 | -------- | -------- |
