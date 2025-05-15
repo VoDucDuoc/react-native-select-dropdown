@@ -9,6 +9,7 @@ export const useSelectDropdown = (
   defaultValue,
   disabledInternalSearch,
   multiple = false,
+  keyForMappingDefaultValues,
 ) => {
   const [selectedItems, setSelectedItems] = useState([]); // selected items from dropdown
   const [selectedItem, setSelectedItem] = useState(null); // selected item from dropdown
@@ -27,7 +28,11 @@ export const useSelectDropdown = (
     // defaultValueByIndex may be equals zero
     if (isExist(defaultValueByIndex)) {
       if (data && isExist(data[defaultValueByIndex])) {
-        selectItem(defaultValueByIndex);
+        if (multiple) {
+          selectItems(defaultValueByIndex);
+        } else {
+          selectItem(defaultValueByIndex);
+        }
       }
     }
   }, [JSON.stringify(defaultValueByIndex)]);
@@ -35,8 +40,20 @@ export const useSelectDropdown = (
   useEffect(() => {
     // defaultValue may be equals zero
     if (isExist(defaultValue)) {
-      if (data && findIndexInArr(defaultValue, data) >= 0) {
-        selectItem(findIndexInArr(defaultValue, data));
+      if (multiple) {
+        for (let index = 0; index < defaultValue.length; index++) {
+          const selectItemIndex = findIndexInArr(defaultValue[index], data, keyForMappingDefaultValues);
+          if (data && selectItemIndex >= 0) {
+            selectItems(selectItemIndex);
+          }
+        }
+       
+      } else {
+        const selectItemIndex = findIndexInArr(defaultValue, data, keyForMappingDefaultValues);
+        console.log('selectItemIndexL ', selectItemIndex);
+        if (data && selectItemIndex >= 0) {
+          selectItem(selectItemIndex);
+        }
       }
     }
   }, [JSON.stringify(defaultValue)]);
@@ -49,22 +66,21 @@ export const useSelectDropdown = (
   }, [JSON.stringify(data), searchTxt]);
 
   const selectItem = index => {
-    if (multiple) {
-      setSelectedItems(prevSelectedItems => {
-        const isExist = prevSelectedItems.some(item => item?.index === index);
-        if (isExist) {
-          return prevSelectedItems.filter(item => item?.index !== index);
-        } else {
-          if(typeof data[index] === 'object') {
-            return [...prevSelectedItems, { ...data[index], index }];
-          }
-          return [...prevSelectedItems, { item: data[index], index }];
+    setSelectedItem(data[index]);
+    setSelectedIndex(index);
+  };
+  const selectItems = index => {
+    setSelectedItems(prevSelectedItems => {
+      const isExist = prevSelectedItems.some(item => item?.index === index);
+      if (isExist) {
+        return prevSelectedItems.filter(item => item?.index !== index);
+      } else {
+        if (typeof data[index] === 'object') {
+          return [...prevSelectedItems, {...data[index], index}];
         }
-      });
-    } else {
-      setSelectedItem(data[index]);
-      setSelectedIndex(index);
-    }
+        return [...prevSelectedItems, {item: data[index], index}];
+      }
+    });
   };
 
   const reset = () => {
@@ -82,6 +98,7 @@ export const useSelectDropdown = (
     selectedItems,
     selectedIndex,
     selectItem,
+    selectItems,
     reset,
     searchTxt,
     setSearchTxt,

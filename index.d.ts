@@ -120,6 +120,11 @@ declare module '@duocvo/react-native-select-dropdown' {
      * Enable auto focus the search input
      */
     autoFocusSearchInput?: boolean;
+
+    /**
+     * key for mapping data with default values
+     */
+    keyForMappingDefaultValues?: string;
   };
 
   export default class SelectDropdown extends React.Component<SelectDropdownProps> {

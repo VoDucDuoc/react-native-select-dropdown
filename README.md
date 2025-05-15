@@ -138,6 +138,8 @@ import SelectDropdown from '@duocvo/react-native-select-dropdown'
 
 - [`defaultValueByIndex`](#defaultValueByIndex)
 
+- [`keyForMappingDefaultValues`](#keyForMappingDefaultValues)
+
 - [`disabled`](#disabled)
 
 - [`disabledIndexes`](#disabledIndexes)
@@ -274,6 +276,16 @@ default selected item index
 | Type    | Required |
 | ------- | -------- |
 | integer | No       |
+
+---
+
+### keyForMappingDefaultValues
+
+key for mapping data with default values
+
+| Type    | Required |
+| ------- | -------- |
+| string | No       |
 
 ---
 

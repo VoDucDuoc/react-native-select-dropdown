@@ -43,6 +43,7 @@ const SelectDropdown = (
     onChangeSearchInputText /* function callback when the search input text changes, this will automatically disable the dropdown's interna search to be implemented manually outside the component  */,
     multiple = false, // for multiple select
     autoFocusSearchInput = false, // for auto focus the search input
+    keyForMappingDefaultValues
   },
   ref,
 ) => {
@@ -54,10 +55,11 @@ const SelectDropdown = (
     selectedItem,
     selectedItems,
     selectItem,
+    selectItems,
     reset,
     searchTxt,
     setSearchTxt,
-  } = useSelectDropdown(data, defaultValueByIndex, defaultValue, disabledInternalSearch, multiple);
+  } = useSelectDropdown(data, defaultValueByIndex, defaultValue, disabledInternalSearch, multiple,keyForMappingDefaultValues);
   const {
     isVisible, //
     setIsVisible,
@@ -111,8 +113,10 @@ const SelectDropdown = (
   const onSelectItem = (item, index) => {
     const indexInOriginalArr = findIndexInArr(item, data);
     onSelect && onSelect(item, indexInOriginalArr);
-    selectItem(indexInOriginalArr);
-    if (!multiple) {
+    if (multiple) {
+      selectItems(indexInOriginalArr);
+    } else {
+      selectItem(indexInOriginalArr);
       closeDropdown();
     }
   };
