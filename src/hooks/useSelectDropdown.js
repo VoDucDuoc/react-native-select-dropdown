@@ -50,13 +50,12 @@ export const useSelectDropdown = (
        
       } else {
         const selectItemIndex = findIndexInArr(defaultValue, data, keyForMappingDefaultValues);
-        console.log('selectItemIndexL ', selectItemIndex);
         if (data && selectItemIndex >= 0) {
           selectItem(selectItemIndex);
         }
       }
     }
-  }, [JSON.stringify(defaultValue)]);
+  }, [JSON.stringify(defaultValue), data, keyForMappingDefaultValues]);
 
   const dataArr = useMemo(() => {
     if (disabledInternalSearch) {
