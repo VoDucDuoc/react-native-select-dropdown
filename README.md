@@ -119,6 +119,13 @@ import SelectDropdown from '@duocvo/react-native-select-dropdown'
 ```
 
 ### Props
+- [`isRemoveDiacritics`](#isRemoveDiacritics)
+
+- [`multiple`](#multiple)
+
+- [`autoFocusSearchInput`](#autoFocusSearchInput)
+
+- [`renderButtonMultiple](#renderButtonMultiple)
 
 - [`data`](#data)
 
@@ -128,17 +135,12 @@ import SelectDropdown from '@duocvo/react-native-select-dropdown'
 
 - [`renderItem`](#renderItem)
 
-- [`multiple`](#multiple)
 
-- [`autoFocusSearchInput`](#autoFocusSearchInput)
 
-- [`renderButtonMultiple](#renderButtonMultiple)
 
 - [`defaultValue`](#defaultValue)
 
 - [`defaultValueByIndex`](#defaultValueByIndex)
-
-- [`keyForMappingDefaultValues`](#keyForMappingDefaultValues)
 
 - [`disabled`](#disabled)
 
@@ -189,6 +191,47 @@ import SelectDropdown from '@duocvo/react-native-select-dropdown'
 
 ---
 
+### isRemoveDiacritics
+
+Remove diacritics from search input text
+
+| Type     | Required |
+| -------- | -------- |
+| boolean  | No       |
+
+---
+
+### autoFocusSearchInput
+
+Option focus input in search section
+
+| Type     | Required |
+| -------- | -------- |
+| boolean  | No       |
+
+---
+
+### multiple
+
+Enable multiple selection
+
+| Type     | Required |
+| -------- | -------- |
+| boolean  | No       |
+
+---
+
+
+### renderButtonMultiple
+
+function returns React component for the dropdown button when multiple true
+
+| Type     | Required |
+| -------- | -------- |
+| function | No       |
+
+---
+
 ### data
 
 array of data that will be represented in dropdown 'can be array of objects
@@ -229,36 +272,6 @@ function returns React component for each dropdown item
 
 ---
 
-### multiple
-
-Enable multiple selection
-
-| Type     | Required |
-| -------- | -------- |
-| boolean  | No       |
-
----
-
-### autoFocusSearchInput
-
-Option focus input in search section
-
-| Type     | Required |
-| -------- | -------- |
-| boolean  | No       |
-
----
-
-### renderButtonMultiple
-
-function returns React component for the dropdown button when multiple true
-
-| Type     | Required |
-| -------- | -------- |
-| function | No       |
-
----
-
 ### defaultValue
 
 default selected item in dropdown ( check examples in Demo1)
@@ -277,15 +290,6 @@ default selected item index
 | ------- | -------- |
 | integer | No       |
 
----
-
-### keyForMappingDefaultValues
-
-key for mapping data with default values
-
-| Type    | Required |
-| ------- | -------- |
-| string | No       |
 
 ---
 

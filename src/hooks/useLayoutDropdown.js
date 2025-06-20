@@ -23,9 +23,9 @@ export const useLayoutDropdown = (data, dropdownStyle) => {
   const onDropdownButtonLayout = (w, h, px, py) => {
     setButtonLayout({w, h, px, py});
 
-    const remainingHeight = dropdownStyle?.height || height / 4;
+    const dropdownHeight = dropdownStyle?.height || DROPDOWN_MAX_HEIGHT;
 
-    if (py + h > height - remainingHeight) {
+    if (py + h + dropdownHeight > height) {
       return setDropdownCalculatedStyle({
         bottom: height - (py + h) + h,
         width: dropdownStyle?.width || w,

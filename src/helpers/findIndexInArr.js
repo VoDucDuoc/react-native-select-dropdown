@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export const findIndexInArr = (obj, arr, keyForMappingDefaultValues) => {
+export const findIndexInArr = (obj, arr) => {
   var defaultValueIndex = -1;
   if (typeof obj == 'object') {
     for (let index = 0; index < arr.length; index++) {
@@ -15,11 +15,10 @@ export const findIndexInArr = (obj, arr, keyForMappingDefaultValues) => {
   } else {
     for (let index = 0; index < arr.length; index++) {
       let element = arr[index];
-      if(keyForMappingDefaultValues) {
-        element = element[keyForMappingDefaultValues];
-      }
-      if (element == obj) {
-        defaultValueIndex = index;
+      for (let key in element) {
+        if (element[key] == obj) {
+          defaultValueIndex = index;
+        }
       }
       if (index == arr.length - 1) {
         return defaultValueIndex;

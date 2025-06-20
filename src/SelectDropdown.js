@@ -43,7 +43,7 @@ const SelectDropdown = (
     onChangeSearchInputText /* function callback when the search input text changes, this will automatically disable the dropdown's interna search to be implemented manually outside the component  */,
     multiple = false, // for multiple select
     autoFocusSearchInput = false, // for auto focus the search input
-    keyForMappingDefaultValues
+    isRemoveDiacritics = false, // remove diacritics from search input text
   },
   ref,
 ) => {
@@ -59,9 +59,9 @@ const SelectDropdown = (
     reset,
     searchTxt,
     setSearchTxt,
-  } = useSelectDropdown(data, defaultValueByIndex, defaultValue, disabledInternalSearch, multiple,keyForMappingDefaultValues);
+  } = useSelectDropdown(data, defaultValueByIndex, defaultValue, disabledInternalSearch, multiple, isRemoveDiacritics);
   const {
-    isVisible, //
+    isVisible,
     setIsVisible,
     buttonLayout,
     onDropdownButtonLayout,
@@ -84,8 +84,9 @@ const SelectDropdown = (
   }));
   /* ******************* Methods ******************* */
   const openDropdown = () => {
-    dropdownButtonRef.current.measure((fx, fy, w, h, px, py) => {
+    dropdownButtonRef.current.measure(async (fx, fy, w, h, px, py) => {
       onDropdownButtonLayout(w, h, px, py);
+      await new Promise(resolve => setTimeout(resolve, 200));
       setIsVisible(true);
       onFocus && onFocus();
       scrollToSelectedItem();

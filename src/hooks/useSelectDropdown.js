@@ -9,7 +9,7 @@ export const useSelectDropdown = (
   defaultValue,
   disabledInternalSearch,
   multiple = false,
-  keyForMappingDefaultValues,
+  isRemoveDiacritics = false,
 ) => {
   const [selectedItems, setSelectedItems] = useState([]); // selected items from dropdown
   const [selectedItem, setSelectedItem] = useState(null); // selected item from dropdown
@@ -42,26 +42,26 @@ export const useSelectDropdown = (
     if (isExist(defaultValue)) {
       if (multiple) {
         for (let index = 0; index < defaultValue.length; index++) {
-          const selectItemIndex = findIndexInArr(defaultValue[index], data, keyForMappingDefaultValues);
+          const selectItemIndex = findIndexInArr(defaultValue[index], data);
           if (data && selectItemIndex >= 0) {
             selectItems(selectItemIndex);
           }
         }
        
       } else {
-        const selectItemIndex = findIndexInArr(defaultValue, data, keyForMappingDefaultValues);
+        const selectItemIndex = findIndexInArr(defaultValue, data);
         if (data && selectItemIndex >= 0) {
           selectItem(selectItemIndex);
         }
       }
     }
-  }, [JSON.stringify(defaultValue), data, keyForMappingDefaultValues]);
+  }, [JSON.stringify(defaultValue), data]);
 
   const dataArr = useMemo(() => {
     if (disabledInternalSearch) {
       return data;
     }
-    return searchTxt ? deepSearchInArr(searchTxt, data) : data;
+    return searchTxt ? deepSearchInArr(searchTxt, data, isRemoveDiacritics) : data;
   }, [JSON.stringify(data), searchTxt]);
 
   const selectItem = index => {
