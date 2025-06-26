@@ -124,6 +124,11 @@ declare module '@duocvo/react-native-select-dropdown' {
      * Remove diacritics from search input text
      */
     isRemoveDiacritics?: boolean;
+
+    /**
+     * Show full height of dropdown when keyboard is opened
+     */
+    isShowFullHeight?: boolean;
   };
 
   export default class SelectDropdown extends React.Component<SelectDropdownProps> {

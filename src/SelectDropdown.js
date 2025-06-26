@@ -44,6 +44,7 @@ const SelectDropdown = (
     multiple = false, // for multiple select
     autoFocusSearchInput = false, // for auto focus the search input
     isRemoveDiacritics = false, // remove diacritics from search input text
+    isShowFullHeight = false, // show full dropdown height when keyboard is opened
   },
   ref,
 ) => {
@@ -60,14 +61,8 @@ const SelectDropdown = (
     searchTxt,
     setSearchTxt,
   } = useSelectDropdown(data, defaultValueByIndex, defaultValue, disabledInternalSearch, multiple, isRemoveDiacritics);
-  const {
-    isVisible,
-    setIsVisible,
-    buttonLayout,
-    onDropdownButtonLayout,
-    dropdownWindowStyle,
-    onRequestClose,
-  } = useLayoutDropdown(data, dropdownStyle);
+  const {isVisible, setIsVisible, buttonLayout, onDropdownButtonLayout, dropdownWindowStyle, onRequestClose} =
+    useLayoutDropdown(data, dropdownStyle, isShowFullHeight);
   useImperativeHandle(ref, () => ({
     reset: () => {
       reset();
@@ -89,7 +84,9 @@ const SelectDropdown = (
       await new Promise(resolve => setTimeout(resolve, 200));
       setIsVisible(true);
       onFocus && onFocus();
-      scrollToSelectedItem();
+      if (!disableAutoScroll) {
+        scrollToSelectedItem();
+      }
     });
   };
   const closeDropdown = () => {
@@ -204,18 +201,17 @@ const SelectDropdown = (
     );
   };
   ///////////////////////////////////////////////////////
-  let clonedElement =
-    multiple ? (
-      renderButtonMultiple ? (
-        renderButtonMultiple(selectedItems, isVisible)
-      ) : (
-        <View />
-      )
-    ) : renderButton ? (
-      renderButton(selectedItem, isVisible)
+  let clonedElement = multiple ? (
+    renderButtonMultiple ? (
+      renderButtonMultiple(selectedItems, isVisible)
     ) : (
       <View />
-    );
+    )
+  ) : renderButton ? (
+    renderButton(selectedItem, isVisible)
+  ) : (
+    <View />
+  );
   let props = {...clonedElement.props};
   return (
     <TouchableOpacity {...props} activeOpacity={0.8} ref={dropdownButtonRef} disabled={disabled} onPress={openDropdown}>
