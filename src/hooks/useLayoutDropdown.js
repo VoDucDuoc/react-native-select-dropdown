@@ -1,5 +1,5 @@
 import {useEffect, useState, useMemo} from 'react';
-import {I18nManager, Dimensions} from 'react-native';
+import {I18nManager, Dimensions, Platform, StatusBar} from 'react-native';
 import {getDropdownHeight} from '../helpers/getDropdownHeight';
 import {useKeyboardHeight} from './useKeyboardHeight';
 const {height} = Dimensions.get('window');
@@ -26,13 +26,16 @@ export const useLayoutDropdown = (data, dropdownStyle, isShowFullHeight = false)
     const dropdownHeight = getDropdownHeight(dropdownStyle, DROPDOWN_MAX_HEIGHT);
     if (py + h + dropdownHeight > height) {
       return setDropdownCalculatedStyle({
-        bottom: height - (py + h) + h,
+        top:
+          py -
+          getDropdownHeight(dropdownStyle, DROPDOWN_MAX_HEIGHT) -
+          (Platform.OS === 'android' ? StatusBar?.currentHeight || 0 : 0),
         width: dropdownStyle?.width || w,
         ...(I18nManager.isRTL ? {right: dropdownStyle?.right || px} : {left: dropdownStyle?.left || px}),
       });
     }
     return setDropdownCalculatedStyle({
-      top: py + h,
+      top: py + h - (Platform.OS === 'android' ? StatusBar?.currentHeight || 0 : 0),
       width: dropdownStyle?.width || w,
       ...(I18nManager.isRTL ? {right: dropdownStyle?.right || px} : {left: dropdownStyle?.left || px}),
     });
