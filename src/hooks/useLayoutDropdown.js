@@ -23,13 +23,9 @@ export const useLayoutDropdown = (data, dropdownStyle, isShowFullHeight = false)
   const onDropdownButtonLayout = (w, h, px, py) => {
     setButtonLayout({w, h, px, py});
 
-    const dropdownHeight = getDropdownHeight(dropdownStyle, DROPDOWN_MAX_HEIGHT);
-    if (py + h + dropdownHeight > height) {
+    if (py + h + dropdownHEIGHT > height) {
       return setDropdownCalculatedStyle({
-        top:
-          py -
-          getDropdownHeight(dropdownStyle, DROPDOWN_MAX_HEIGHT) -
-          (Platform.OS === 'android' ? StatusBar?.currentHeight || 0 : 0),
+        top: py - dropdownHEIGHT - (Platform.OS === 'android' ? StatusBar?.currentHeight || 0 : 0),
         width: dropdownStyle?.width || w,
         ...(I18nManager.isRTL ? {right: dropdownStyle?.right || px} : {left: dropdownStyle?.left || px}),
       });
@@ -68,7 +64,7 @@ export const useLayoutDropdown = (data, dropdownStyle, isShowFullHeight = false)
       ...{
         position: 'absolute',
         height: dropdownHEIGHT,
-        maxHeight: DROPDOWN_MAX_HEIGHT,
+        // maxHeight: DROPDOWN_MAX_HEIGHT,
       },
       ...getPositionIfKeyboardIsOpened(),
     };
