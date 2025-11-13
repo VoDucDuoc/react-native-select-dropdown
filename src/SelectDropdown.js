@@ -45,6 +45,7 @@ const SelectDropdown = (
     autoFocusSearchInput = false, // for auto focus the search input
     isRemoveDiacritics = false, // remove diacritics from search input text
     isShowFullHeight = false, // show full dropdown height when keyboard is opened
+    contentContainerStyle, // style object for flatlist content container
   },
   ref,
 ) => {
@@ -194,6 +195,7 @@ const SelectDropdown = (
               onEndReachedThreshold={0.5}
               showsVerticalScrollIndicator={showsVerticalScrollIndicator}
               onScrollToIndexFailed={onScrollToIndexFailed}
+              contentContainerStyle={contentContainerStyle}
             />
           </DropdownWindow>
         </DropdownModal>

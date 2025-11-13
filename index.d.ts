@@ -129,6 +129,11 @@ declare module '@duocvo/react-native-select-dropdown' {
      * Show full height of dropdown when keyboard is opened
      */
     isShowFullHeight?: boolean;
+
+    /**
+     * style object for flatlist content container
+     */
+    contentContainerStyle?: StyleProp<ViewStyle>;
   };
 
   export default class SelectDropdown extends React.Component<SelectDropdownProps> {
