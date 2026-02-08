@@ -1,3 +1,10 @@
+# ⚠️ DEPRECATION NOTICE
+This package has been deprecated in favor of https://github.com/VoDucDuoc/react-native-dropdown.
+
+Why the change? The new library is a complete rewrite using React Native Reanimated for better performance (60 FPS), improved hardware acceleration, and a more flexible API.
+
+We highly recommend all users to migrate to the new package as this version will no longer receive updates or bug fixes.
+
 # react-native-select-dropdown
 
 This package was forked from https://github.com/AdelRedaa97/react-native-select-dropdown
