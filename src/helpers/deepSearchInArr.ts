@@ -1,4 +1,4 @@
-const contains = (item, searchTxt, isRemoveDiacritics = false) => {
+const contains = (item: any, searchTxt: string, isRemoveDiacritics: boolean = false): boolean => {
   // item is an object
   if (typeof item == 'object' && item != null) {
     for (let key in item) {
@@ -19,15 +19,15 @@ const contains = (item, searchTxt, isRemoveDiacritics = false) => {
   return false;
 };
 
-const removeDiacritics = (str) => {
+const removeDiacritics = (str: string): string => {
   return str
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase();
 };
 
-export const deepSearchInArr = (query, arr, isRemoveDiacritics = false) => {
-  let array = [];
+export const deepSearchInArr = (query: string, arr: any[], isRemoveDiacritics: boolean = false): any[] => {
+  let array: any[] = [];
   for (let i = 0; i <= arr.length - 1; i++) {
     if (contains(arr[i], query, isRemoveDiacritics)) {
       array.push(arr[i]);
@@ -36,4 +36,6 @@ export const deepSearchInArr = (query, arr, isRemoveDiacritics = false) => {
       return array;
     }
   }
+  return array;
 };
+

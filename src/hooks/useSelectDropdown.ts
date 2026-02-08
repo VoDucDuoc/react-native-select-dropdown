@@ -3,18 +3,23 @@ import {deepSearchInArr} from '../helpers/deepSearchInArr';
 import {findIndexInArr} from '../helpers/findIndexInArr';
 import {isExist} from '../helpers/isExist';
 
+interface SelectedItem {
+  index: number;
+  [key: string]: any;
+}
+
 export const useSelectDropdown = (
-  data,
-  defaultValueByIndex,
-  defaultValue,
-  disabledInternalSearch,
-  multiple = false,
-  isRemoveDiacritics = false,
+  data: any[],
+  defaultValueByIndex: number | undefined,
+  defaultValue: any,
+  disabledInternalSearch: boolean,
+  multiple: boolean = false,
+  isRemoveDiacritics: boolean = false,
 ) => {
-  const [selectedItems, setSelectedItems] = useState([]); // selected items from dropdown
-  const [selectedItem, setSelectedItem] = useState(null); // selected item from dropdown
-  const [selectedIndex, setSelectedIndex] = useState(-1); // index of selected item from dropdown
-  const [searchTxt, setSearchTxt] = useState('');
+  const [selectedItems, setSelectedItems] = useState<SelectedItem[]>([]); // selected items from dropdown
+  const [selectedItem, setSelectedItem] = useState<any>(null); // selected item from dropdown
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1); // index of selected item from dropdown
+  const [searchTxt, setSearchTxt] = useState<string>('');
 
   // data array changes
   useEffect(() => {
@@ -64,11 +69,11 @@ export const useSelectDropdown = (
     return searchTxt ? deepSearchInArr(searchTxt, data, isRemoveDiacritics) : data;
   }, [JSON.stringify(data), searchTxt]);
 
-  const selectItem = index => {
+  const selectItem = (index: number) => {
     setSelectedItem(data[index]);
     setSelectedIndex(index);
   };
-  const selectItems = index => {
+  const selectItems = (index: number) => {
     setSelectedItems(prevSelectedItems => {
       const isExist = prevSelectedItems.some(item => item?.index === index);
       if (isExist) {
@@ -103,3 +108,4 @@ export const useSelectDropdown = (
     setSearchTxt,
   };
 };
+

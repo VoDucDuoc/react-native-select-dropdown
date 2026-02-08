@@ -1,8 +1,28 @@
 import React from 'react';
 import {forwardRef} from 'react';
-import {View, TextInput, StyleSheet, I18nManager} from 'react-native';
+import {View, TextInput, StyleSheet, I18nManager, StyleProp, ViewStyle, TextStyle} from 'react-native';
 
 const voidFunction = () => {};
+
+interface InputProps {
+  searchViewWidth: number;
+  inputStyle?: StyleProp<ViewStyle>;
+  inputTextStyle?: StyleProp<TextStyle>;
+  value?: string;
+  valueColor?: string;
+  placeholder?: string;
+  placeholderTextColor?: string;
+  textAlign?: 'left' | 'right' | 'center';
+  onChangeText?: (text: string) => void;
+  onEndEditing?: () => void;
+  onSubmitEditing?: () => void;
+  renderLeft?: () => React.ReactNode;
+  renderRight?: () => React.ReactNode;
+  testID?: string;
+  autoFocus?: boolean;
+  onFocus?: () => void;
+  onBlur?: () => void;
+}
 
 const Input = (
   {
@@ -21,8 +41,10 @@ const Input = (
     renderRight,
     testID,
     autoFocus,
-  },
-  ref,
+    onFocus,
+    onBlur,
+  }: InputProps,
+  ref: React.Ref<TextInput>,
 ) => {
   const defaults = {
     inputStyle: inputStyle,
@@ -39,9 +61,11 @@ const Input = (
     renderRight: renderRight,
     testID: testID,
     autoFocus: autoFocus ?? false,
+    onFocus: onFocus ?? voidFunction,
+    onBlur: onBlur ?? voidFunction,
   };
 
-  const onChangeTextValidator = txt => {
+  const onChangeTextValidator = (txt: string) => {
     if (txt.length == 1 && txt == ' ') {
       return;
     }
@@ -56,7 +80,7 @@ const Input = (
       <View
         style={{
           ...styles.defaultInputStyle,
-          ...defaults.inputStyle,
+          ...(defaults.inputStyle as object),
         }}>
         {defaults.renderLeft && <View style={styles.pressableLeft}>{defaults.renderLeft()}</View>}
         <TextInput
@@ -70,7 +94,7 @@ const Input = (
           onEndEditing={defaults.onEndEditing}
           onSubmitEditing={defaults.onSubmitEditing}
           //
-          style={{...styles.inputField, color: defaults.valueColor, ...defaults.inputTextStyle}}
+          style={{...styles.inputField, color: defaults.valueColor, ...(defaults.inputTextStyle as object)}}
           returnKeyType={'done'}
           textContentType={'oneTimeCode'}
           allowFontScaling={false}
@@ -78,6 +102,8 @@ const Input = (
           autoCorrect={false}
           autoCapitalize={'none'}
           autoFocus={defaults.autoFocus}
+          onFocus={defaults.onFocus}
+          onBlur={defaults.onBlur}
         />
         {defaults.renderRight && <View style={styles.pressableRight}>{defaults.renderRight()}</View>}
       </View>
@@ -85,7 +111,7 @@ const Input = (
   );
 };
 
-export default forwardRef((props, ref) => Input(props, ref));
+export default forwardRef<TextInput, InputProps>((props, ref) => Input(props, ref));
 
 const styles = StyleSheet.create({
   searchViewStyle: {
@@ -118,3 +144,4 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+

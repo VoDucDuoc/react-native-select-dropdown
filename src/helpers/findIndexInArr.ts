@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
-export const findIndexInArr = (obj, arr) => {
-  var defaultValueIndex = -1;
+export const findIndexInArr = (obj: any, arr: any[]): number => {
+  let defaultValueIndex = -1;
   if (typeof obj == 'object') {
     for (let index = 0; index < arr.length; index++) {
       const element = arr[index];
@@ -25,4 +25,6 @@ export const findIndexInArr = (obj, arr) => {
       }
     }
   }
+  return defaultValueIndex;
 };
+

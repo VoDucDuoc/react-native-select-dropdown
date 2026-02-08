@@ -2,8 +2,20 @@
   "name": "@duocvo/react-native-select-dropdown",
   "version": "1.0.10",
   "description": "This package was forked from https://github.com/AdelRedaa97/react-native-select-dropdown. Allow multiple select dropdown with search and custom styles.",
-  "main": "index.js",
+  "main": "index.tsx",
   "typings": "index.d.ts",
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-native": "^0.73.0",
+    "react-native-reanimated": "^3.16.7",
+    "react-native": "0.76.7"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-reanimated": ">=3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "login": "npm adduser",

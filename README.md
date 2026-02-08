@@ -28,59 +28,144 @@ yarn add @duocvo/react-native-select-dropdown
 
 ## Usage
 
-```
+### Basic Example (Single Select)
+
+```tsx
 import SelectDropdown from '@duocvo/react-native-select-dropdown'
-...
-  const emojis = [
-    'happy',
-    'cool',
-    'lol',
-    'sad',
-    'cry',
-    'angry',
-    'confused',
-    'excited',
-    'kiss',
-    'devil',
-    'dead',
-    'wink',
-    'sick',
-    'frown',
-  ];
-...
-    <SelectDropdown
-      data={emojis}
-      onSelect={(selectedItem, index) => {
-        console.log(selectedItem, index);
-      }}
-      renderButtonMultiple={(selectedItems, isOpen) => {
-        return (
-          <View style={styles.dropdownButtonStyle}>
-            <CustomText style={styles.dropdownButtonTxtStyle}>
-              {selectedItems?.map(it => it.item).join(', ') || 'Select your mood'}
-            </CustomText>
-          </View>
-         );
-      }}
-      multiple
-      renderItem={(item, index, isSelected) => {
-        return (
-          <View
-            style={{
-              ...styles.dropdownItemStyle,
-              ...(isSelected && { backgroundColor: '#D2D9DF' }),
-            }}
-          >
-            <CustomText style={styles.dropdownItemTxtStyle}>
-               {item}
-            </CustomText>
-          </View>
-        );
-      }}
-      dropdownStyle={styles.dropdownMenuStyle}
-    />
-...
-  const styles = StyleSheet.create({
+
+const fruits = ['Apple', 'Banana', 'Orange', 'Grape', 'Mango'];
+
+<SelectDropdown
+  data={fruits}
+  onSelect={(selectedItem, index) => {
+    console.log(selectedItem, index);
+  }}
+  renderButton={(selectedItem, isOpened) => {
+    return (
+      <View style={styles.dropdownButtonStyle}>
+        <Text style={styles.dropdownButtonTxtStyle}>
+          {selectedItem || 'Select a fruit'}
+        </Text>
+        <Text style={styles.dropdownButtonArrowStyle}>▼</Text>
+      </View>
+    );
+  }}
+  renderItem={(item, index, isSelected) => {
+    return (
+      <View
+        style={[
+          styles.dropdownItemStyle,
+          isSelected && { backgroundColor: '#D2D9DF' },
+        ]}
+      >
+        <Text style={styles.dropdownItemTxtStyle}>{item}</Text>
+      </View>
+    );
+  }}
+  dropdownStyle={styles.dropdownMenuStyle}
+/>
+```
+
+### Multiple Select Example
+
+```tsx
+const emojis = [
+  'happy',
+  'cool',
+  'lol',
+  'sad',
+  'cry',
+  'angry',
+  'confused',
+  'excited',
+  'kiss',
+  'devil',
+  'dead',
+  'wink',
+  'sick',
+  'frown',
+];
+
+<SelectDropdown
+  data={emojis}
+  onSelect={(selectedItem, index) => {
+    console.log(selectedItem, index);
+  }}
+  renderButtonMultiple={(selectedItems, isOpen) => {
+    return (
+      <View style={styles.dropdownButtonStyle}>
+        <Text style={styles.dropdownButtonTxtStyle}>
+          {selectedItems?.map(it => it.item).join(', ') || 'Select your mood'}
+        </Text>
+      </View>
+    );
+  }}
+  multiple
+  renderItem={(item, index, isSelected) => {
+    return (
+      <View
+        style={[
+          styles.dropdownItemStyle,
+          isSelected && { backgroundColor: '#D2D9DF' },
+        ]}
+      >
+        <Text style={styles.dropdownItemTxtStyle}>{item}</Text>
+      </View>
+    );
+  }}
+  dropdownStyle={styles.dropdownMenuStyle}
+/>
+```
+
+### Search Example
+
+```tsx
+<SelectDropdown
+  data={data}
+  onSelect={(selectedItem, index) => {
+    console.log(selectedItem, index);
+  }}
+  renderButton={(selectedItem, isOpened) => {
+    return (
+      <View style={styles.dropdownButtonStyle}>
+        <Text style={styles.dropdownButtonTxtStyle}>
+          {selectedItem || 'Select an item'}
+        </Text>
+      </View>
+    );
+  }}
+  renderItem={(item, index, isSelected) => {
+    return (
+      <View style={styles.dropdownItemStyle}>
+        <Text style={styles.dropdownItemTxtStyle}>{item}</Text>
+      </View>
+    );
+  }}
+  search
+  searchPlaceHolder="Search..."
+  searchPlaceHolderColor="#999"
+  dropdownStyle={styles.dropdownMenuStyle}
+/>
+```
+
+### Bottom Mode with Search Example
+
+```tsx
+<SelectDropdown
+  data={data}
+  onSelect={onSelect}
+  renderButton={renderButton}
+  renderItem={renderItem}
+  search
+  dropdownPositionMode="bottom"
+  keyboardHeight={300} // Optional: provide keyboard height for faster calculation
+/>
+```
+
+### Styling
+
+```tsx
+const styles = StyleSheet.create({
     dropdownButtonStyle: {
       width: 200,
       height: 50,
@@ -119,75 +204,101 @@ import SelectDropdown from '@duocvo/react-native-select-dropdown'
 ```
 
 ### Props
-- [`isRemoveDiacritics`](#isRemoveDiacritics)
 
-- [`multiple`](#multiple)
+**Core Props:**
+- [`data`](#data) - Array of data items to display
+- [`onSelect`](#onSelect) - Callback when an item is selected
+- [`renderButton`](#renderButton) - Function to render the dropdown button (single select)
+- [`renderButtonMultiple`](#renderButtonMultiple) - Function to render the dropdown button (multiple select)
+- [`renderItem`](#renderItem) - Function to render each dropdown item
 
-- [`autoFocusSearchInput`](#autoFocusSearchInput)
+**Selection Props:**
+- [`defaultValue`](#defaultValue) - Default selected item
+- [`defaultValueByIndex`](#defaultValueByIndex) - Default selected item by index
+- [`multiple`](#multiple) - Enable multiple selection
+- [`disabled`](#disabled) - Disable the dropdown
+- [`disabledIndexes`](#disabledIndexes) - Array of disabled item indexes
 
-- [`renderButtonMultiple](#renderButtonMultiple)
+**Search Props:**
+- [`search`](#search) - Enable search functionality
+- [`searchInputStyle`](#searchInputStyle) - Style for search input
+- [`searchInputTxtColor`](#searchInputTxtColor) - Text color for search input
+- [`searchInputTxtStyle`](#searchInputTxtStyle) - Text style for search input
+- [`searchPlaceHolder`](#searchPlaceHolder) - Placeholder text for search input
+- [`searchPlaceHolderColor`](#searchPlaceHolderColor) - Placeholder text color
+- [`autoFocusSearchInput`](#autoFocusSearchInput) - Auto focus search input on open
+- [`isRemoveDiacritics`](#isRemoveDiacritics) - Remove diacritics from search text
+- [`renderSearchInputLeftIcon`](#renderSearchInputLeftIcon) - Render left icon in search input
+- [`renderSearchInputRightIcon`](#renderSearchInputRightIcon) - Render right icon in search input
+- [`onChangeSearchInputText`](#onChangeSearchInputText) - Callback when search text changes
 
-- [`data`](#data)
+**Styling Props:**
+- [`dropdownStyle`](#dropdownStyle) - Style object for dropdown view
+- [`dropdownOverlayColor`](#dropdownOverlayColor) - Backdrop color when dropdown is opened
+- [`dropdownContentContainerStyle`](#dropdownContentContainerStyle) - Style for dropdown content container
+- [`showsVerticalScrollIndicator`](#showsVerticalScrollIndicator) - Show vertical scroll indicator
 
-- [`onSelect`](#onSelect)
+**Behavior Props:**
+- [`dropdownPositionMode`](#dropdownPositionMode) - Position mode: 'default' or 'bottom'
+- [`keyboardHeight`](#keyboardHeight) - Keyboard height for position calculation
+- [`disableAutoScroll`](#disableAutoScroll) - Disable auto scroll to selected value
+- [`statusBarTranslucent`](#statusBarTranslucent) - Enable when statusbar is translucent (Android only)
 
-- [`renderButton`](#renderButton)
+**Event Props:**
+- [`onFocus`](#onFocus) - Callback when dropdown is opened
+- [`onBlur`](#onBlur) - Callback when dropdown is closed
+- [`onScrollEndReached`](#onScrollEndReached) - Callback when scroll reaches end
 
-- [`renderItem`](#renderItem)
-
-
-
-
-- [`defaultValue`](#defaultValue)
-
-- [`defaultValueByIndex`](#defaultValueByIndex)
-
-- [`disabled`](#disabled)
-
-- [`disabledIndexes`](#disabledIndexes)
-
-- [`disableAutoScroll`](#disableAutoScroll)
-
-- [`testID`](#testID)
-
-- [`onFocus`](#onFocus)
-
-- [`onBlur`](#onBlur)
-
-- [`onScrollEndReached`](#onScrollEndReached)
-
-- [`statusBarTranslucent`](#statusBarTranslucent)
-
-- [`dropdownStyle`](#dropdownStyle)
-
-- [`dropdownOverlayColor`](#dropdownOverlayColor)
-
-- [`showsVerticalScrollIndicator`](#showsVerticalScrollIndicator)
-
-- [`search`](#search)
-
-- [`searchInputStyle`](#searchInputStyle)
-
-- [`searchInputTxtColor`](#searchInputTxtColor)
-
-- [`searchInputTxtStyle`](#searchInputTxtStyle)
-
-- [`searchPlaceHolder`](#searchPlaceHolder)
-
-- [`searchPlaceHolderColor`](#searchPlaceHolderColor)
-
-- [`renderSearchInputLeftIcon`](#renderSearchInputLeftIcon)
-
-- [`renderSearchInputRightIcon`](#renderSearchInputRightIcon)
-
-- [`onChangeSearchInputText`](#onChangeSearchInputText)
+**Other Props:**
+- [`testID`](#testID) - Test ID for testing
 
 ### Methods
 
-- [`reset`](#License)
-- [`openDropdown`](#License)
-- [`closeDropdown`](#License)
-- [`selectIndex`](#License)
+The component exposes the following methods via ref:
+
+| Method               | Description                      |
+| -------------------- | -------------------------------- |
+| `reset()`            | Remove selection & reset it      |
+| `openDropdown()`     | Open the dropdown.               |
+| `closeDropdown()`    | Close the dropdown.              |
+| `selectIndex(index)` | Select a specific item by index. |
+
+**Example:**
+
+```tsx
+import { useRef } from 'react';
+import SelectDropdown, { SelectDropdownRef } from '@duocvo/react-native-select-dropdown';
+
+const dropdownRef = useRef<SelectDropdownRef>(null);
+
+// Open dropdown programmatically
+const handleOpen = () => {
+  dropdownRef.current?.openDropdown();
+};
+
+// Close dropdown programmatically
+const handleClose = () => {
+  dropdownRef.current?.closeDropdown();
+};
+
+// Reset selection
+const handleReset = () => {
+  dropdownRef.current?.reset();
+};
+
+// Select item by index
+const handleSelectIndex = (index: number) => {
+  dropdownRef.current?.selectIndex(index);
+};
+
+<SelectDropdown
+  ref={dropdownRef}
+  data={data}
+  onSelect={onSelect}
+  renderButton={renderButton}
+  renderItem={renderItem}
+/>
+```
 
 ---
 
@@ -493,12 +604,96 @@ function callback when the search input text changes, this will automatically di
 
 ---
 
-| Method               | Description                      |
-| -------------------- | -------------------------------- |
-| `reset()`            | Remove selection & reset it      |
-| `openDropdown()`     | Open the dropdown.               |
-| `closeDropdown()`    | Close the dropdown.              |
-| `selectIndex(index)` | Select a specific item by index. |
+### contentContainerStyle
+
+style object for flatlist content container
+
+| Type   | Required |
+| ------ | -------- |
+| object | No       |
+
+---
+
+### dropdownPositionMode
+
+Dropdown position mode: 'default' positions dropdown near button, 'bottom' positions dropdown at bottom of screen
+
+| Type                      | Required | Default |
+| ------------------------- | -------- | ------- |
+| 'default' \| 'bottom'     | No       | 'default' |
+
+**Example:**
+
+```tsx
+// Default mode - dropdown appears near the button
+<SelectDropdown
+  data={data}
+  onSelect={onSelect}
+  renderButton={renderButton}
+  renderItem={renderItem}
+/>
+
+// Bottom mode - dropdown appears at bottom of screen
+<SelectDropdown
+  data={data}
+  onSelect={onSelect}
+  renderButton={renderButton}
+  renderItem={renderItem}
+  dropdownPositionMode="bottom"
+/>
+```
+
+---
+
+### keyboardHeight
+
+Keyboard height in pixels. When provided, this value will be used to calculate dropdown position when keyboard is opened. If not provided, the component will automatically detect keyboard height using the `useKeyboardHeight` hook.
+
+**Benefits of providing `keyboardHeight` prop:**
+- Faster position calculation (no need to wait for keyboard events)
+- More reliable when keyboard detection might be delayed
+- Useful for custom keyboard implementations
+
+| Type    | Required | Default |
+| ------- | -------- | ------- |
+| number  | No       | undefined |
+
+**Example:**
+
+```tsx
+// Using automatic keyboard height detection (default)
+<SelectDropdown
+  data={data}
+  onSelect={onSelect}
+  renderButton={renderButton}
+  renderItem={renderItem}
+  search
+/>
+
+// Providing keyboard height manually (faster calculation)
+const { keyboardHeight } = useKeyboard();
+
+<SelectDropdown
+  data={data}
+  onSelect={onSelect}
+  renderButton={renderButton}
+  renderItem={renderItem}
+  search
+  keyboardHeight={keyboardHeight}
+/>
+
+// Using fixed keyboard height
+<SelectDropdown
+  data={data}
+  onSelect={onSelect}
+  renderButton={renderButton}
+  renderItem={renderItem}
+  search
+  keyboardHeight={300}
+/>
+```
+
+---
 
 ---
 
